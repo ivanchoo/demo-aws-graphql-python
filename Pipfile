@@ -15,6 +15,7 @@ flask-graphql = "*"
 
 graphene = "*"
 click = "*"
+graphql-server-core = "*"
 
 
 [requires]

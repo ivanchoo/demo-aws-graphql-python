@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f38b839e821aa4221d5fb21a4dd976d33dd16ee756d2200fea2450a44c05481f"
+            "sha256": "d04c510a747c2dc4bca774226850736b4e60a24d1be3957d3450ea7bb979f00a"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -55,6 +55,12 @@
                 "sha256:2716b7245d97091af21abf096fabafac576905096d21ba7118fba722596f65db"
             ],
             "version": "==0.4.5"
+        },
+        "graphql-server-core": {
+            "hashes": [
+                "sha256:91488d17111149d8cafc8b5851cfe90c89bdd8a0412f0683989fc8c160e49259"
+            ],
+            "version": "==1.0.dev20170322001"
         },
         "promise": {
             "hashes": [

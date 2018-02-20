@@ -1,17 +1,20 @@
 #!/usr/bin/env python
-import sys
-import click
-import os
-import subprocess
 import glob
+import os
+import re
 import shutil
-from fnmatch import fnmatch
+import subprocess
+import sys
+
+import click
 
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 BUILD_DIR = os.path.join(ROOT_DIR, 'build')
 BUILD_INCLUDES = ['main.py', 'demo']
 BUILD_DEPENDENCIES_EXCLUDES = [
-    'easy_install.*', 'pip.*', 'setuptools.*', 'wheel.*', 'pkg_resources.*']
+    re.compile(expr) for expr in
+    ['easy_install.*', 'pip.*', 'setuptools.*', 'wheel.*', 'pkg_resources.*']
+]
 
 
 @click.group()
@@ -46,6 +49,13 @@ def server(ctx):
 
 @cli.command()
 @click.pass_context
+def clean(ctx):
+    """Cleans build."""
+    shutil.rmtree(BUILD_DIR, ignore_errors=True)
+
+
+@cli.command()
+@click.pass_context
 def build(ctx):
     """Build the lambda package"""
     try:
@@ -64,16 +74,17 @@ def build(ctx):
     shutil.rmtree(target, ignore_errors=True)
     os.makedirs(target)
     content = []
-    for src in BUILD_INCLUDES:
-        dst = os.path.join(target, src)
+    for each in BUILD_INCLUDES:
+        src = os.path.join(ROOT_DIR, each)
+        dst = os.path.join(target, each)
         content.append((src, dst))
-    for package in os.listdir(site_package):
-        src = os.path.join(site_package, package)
-        if _is_exclude_from_build(src):
-            continue
-        dst = os.path.join(target, package)
+    for each in os.listdir(site_package):
+        src = os.path.join(site_package, each)
+        dst = os.path.join(target, each)
         content.append((src, dst))
     for src, dst in content:
+        if _is_exclude_from_build(src):
+            continue
         if os.path.isdir(src):
             shutil.copytree(src, dst)
         else:
@@ -83,8 +94,8 @@ def build(ctx):
 
 def _is_exclude_from_build(filename):
     filename = os.path.basename(filename)
-    for expr in BUILD_DEPENDENCIES_EXCLUDES:
-        if fnmatch(filename, expr):
+    for regex in BUILD_DEPENDENCIES_EXCLUDES:
+        if regex.match(filename):
             return True
     return False
 

@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: GraphQL + API-Gateway + Lambda
+
+Parameters:
+  EnvironmentName:
+    Description: Name of the stack
+    Type: String
+    Default: demo-graphql
+
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  GraphQLGet:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub ${EnvironmentName}-lambda-get
+      Handler: main.graphql_handler
+      Runtime: python3.6
+      Events:
+        APIGet:
+          Type: Api
+          Properties:
+            Method: get
+            Path: /
+      CodeUri: build/graphql
+
+  GraphQLPost:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub ${EnvironmentName}-lambda-post
+      Handler: main.graphql_handler
+      Runtime: python3.6
+      Events:
+        APIGet:
+          Type: Api
+          Properties:
+            Method: post
+            Path: /
+      CodeUri: build/graphql
