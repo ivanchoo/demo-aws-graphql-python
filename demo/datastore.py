@@ -28,7 +28,7 @@ class DataStore():
         self._create_friendships()
 
     def get_user(self, user_id):
-        return self.users[user_id + 1]
+        return self.users[user_id - 1]
 
     def get_friends(self, user_id):
         if user_id not in self.friendships:
