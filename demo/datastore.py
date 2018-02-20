@@ -40,7 +40,7 @@ class DataStore():
         friendships = {}
         ids = list(range(1, len(self.users) + 1))
         for user_id in ids:
-            num_friends = random.randint(1, 10)
+            num_friends = random.randint(3, 20)
             friend_ids = set(random.sample(ids, num_friends))
             if user_id in friend_ids:
                 friend_ids.remove(user_id)
