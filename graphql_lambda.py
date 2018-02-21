@@ -15,10 +15,13 @@ def create_response(
     assert event, 'Expects event, got `{}`'.format(event)
     assert schema, 'Expects schema, got `{}`'.format(schema)
     request_method = event.get('httpMethod', 'get').lower()
-    headers = event.get('headers', {})
+    # sam-local header keys are inconsistently mixed-cased, so we lower-case em
+    headers = dict(
+        (k.lower(), v) for k, v in event.get('headers', {}).items()
+    )
     body = event.get('body', '')
     query_data = event.get('queryStringParameters', {})
-    content_type = headers.get('Content-Type')
+    content_type = headers.get('content-type')
     if content_type == 'application/graphql':
         data = {'query': body}
     elif content_type == 'application/json':

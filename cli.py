@@ -10,7 +10,7 @@ import click
 
 ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
 BUILD_DIR = os.path.join(ROOT_DIR, 'build')
-BUILD_INCLUDES = ['main.py', 'demo']
+BUILD_INCLUDES = ['main.py', 'demo', 'graphql_lambda.py']
 BUILD_DEPENDENCIES_EXCLUDES = [
     re.compile(expr) for expr in
     ['easy_install.*', 'pip.*', 'setuptools.*', 'wheel.*', 'pkg_resources.*']
