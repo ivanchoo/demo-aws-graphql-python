@@ -7,10 +7,17 @@ Parameters:
     Description: Name of the stack
     Type: String
     Default: demo-graphql
+  GQLEnableGraphiQL:
+    Description: True if we should serve GraphiQL UI
+    Type: String
+    Default: True
 
 Globals:
   Function:
     Timeout: 60
+    Environment: # See main.py
+      Variables:
+        GQL_ENABLE_GRAPHIQL: !Sub ${GQLEnableGraphiQL}
 
 Resources:
   GraphQLGet:

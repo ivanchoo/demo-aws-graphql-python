@@ -9,8 +9,8 @@ if os.path.isfile(VENV_ACTIVATE): # noqa
 from demo.schema import schema
 from graphql_lambda import create_response
 
-GQL_ENABLE_BATCH = bool(os.environ.get('GQL_ENABLE_BATCH', '1'))
-GQL_ENABLE_GRAPHIQL = bool(os.environ.get('GQL_ENABLE_GRAPHIQL', '1'))
+GQL_ENABLE_BATCH = bool(os.environ.get('GQL_ENABLE_BATCH', 'True'))
+GQL_ENABLE_GRAPHIQL = bool(os.environ.get('GQL_ENABLE_GRAPHIQL', 'True'))
 
 
 def graphql_handler(event, context):
