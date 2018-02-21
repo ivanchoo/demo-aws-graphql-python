@@ -1,3 +1,6 @@
+# Mac stuff
+.DS_Store
+
 # Cloudformation deploy stuff
 template.deploy.yml
 
